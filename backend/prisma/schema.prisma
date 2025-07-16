@@ -1,0 +1,183 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//para mandar a migration é npx prisma migrate dev 
+model Funcionario{
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  senha String
+  funcao    Funcao     @default(FUNCIONARIO)
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+
+  @@map("funcionarios")
+  servicos Servico[]
+}
+
+enum Funcao {
+  FUNCIONARIO
+  ADMIN
+  CLIENTE
+}
+
+model Cliente {
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  senha String
+  rua String
+  bairro String
+  numero String
+  funcao Funcao @default(CLIENTE)
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  @@map("clientes")
+  veiculos Veiculo[]
+  servicos Servico[]
+}
+
+model CategoriaVeiculo {
+  id Int @id @default(autoincrement())
+  nome String
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  @@map("categorias_veiculos")
+  veiculos Veiculo[]
+}
+
+model Veiculo {
+  id Int @id @default(autoincrement())
+  placa String @unique
+  modelo String
+  cor String
+  ano Int
+  funcao Funcao @default(CLIENTE) 
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+  categoriaVeiculo CategoriaVeiculo @relation(fields: [categoriaVeiculoId], references: [id])
+
+  @@map("veiculos")
+  clienteId Int
+  categoriaVeiculoId Int
+  servicos Servico[]
+}
+
+model CategoriaServico {
+  id Int @id @default(autoincrement())
+  nome String
+  valor Decimal @db.Decimal(10, 2)
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  @@map("categorias_servicos")
+  servicos Servico[]
+}
+
+model Servico {
+  id Int @id @default(autoincrement())
+  nomeSevico String
+  valor Decimal @db.Decimal(10, 2)
+  status Status @default(PENDENTE)
+  maoDeObra Decimal @db.Decimal(10, 2)
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  categoriaServico CategoriaServico @relation(fields: [categoriaServicoId], references: [id])
+  funcionario Funcionario? @relation(fields: [funcionarioId], references: [id])
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+  veiculo Veiculo @relation(fields: [veiculoId], references: [id])
+
+  @@map("servicos")
+  categoriaServicoId Int
+  funcionarioId Int?
+  clienteId Int
+  veiculoId Int
+}
+
+model CategoriaProduto {
+  id Int @id @default(autoincrement())
+  nome String
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  @@map("categorias_produtos")
+  produtos Produto[]
+}
+
+model Produto {
+  id Int @id @default(autoincrement())
+  nome String
+  valor Decimal @db.Decimal(10, 2)
+  quantidade Int
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  categoriaProduto CategoriaProduto @relation(fields: [categoriaProdutoId], references: [id])
+
+  @@map("produtos")
+  categoriaProdutoId Int
+  vendas Venda[]
+  produtoVendas ProdutoVenda[]
+}
+
+model Venda {
+  id Int @id @default(autoincrement())
+  valorTotal Decimal @db.Decimal(10, 2)
+  status Status @default(EM_ANDAMENTO)
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  produto Produto @relation(fields: [produtoId], references: [id])
+  
+
+  @@map("vendas")
+  produtoId Int
+  produtoVendas ProdutoVenda[]
+}
+
+model ProdutoVenda {
+  id Int @id @default(autoincrement())
+  quantidade Int
+  valorUnitario Decimal @db.Decimal(10, 2)
+  created_at DateTime? @default(now())
+  uptadet_at DateTime? @default(now())
+
+  venda Venda @relation(fields: [vendaId], references: [id])
+  produto Produto @relation(fields: [produtoId], references: [id])
+
+  @@map("produtos_vendas")
+  vendaId Int
+  produtoId Int
+}
+
+enum Status{
+  PENDENTE
+  EM_ANDAMENTO
+  FINALIZADO
+  CANCELADO
+}
+
+
+
+
+
+
