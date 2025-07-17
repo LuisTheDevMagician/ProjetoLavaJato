@@ -1,4 +1,5 @@
 import PrismaClient from '../../prisma'
+import {hash} from 'bcryptjs';
 
 interface ClienteRequest {
     nome: string;
@@ -28,12 +29,14 @@ class CreateClienteService {
             throw new Error('Cliente já cadastrado com esse email');
         }
 
+        const senhaHash = await hash(senha, 8);
+
         // Criação do cliente
         const cliente = await PrismaClient.cliente.create({
             data: {
                 nome: nome,
                 email: email,
-                senha: senha,
+                senha: senhaHash,
                 rua: rua,
                 bairro: bairro,
                 numero: numero

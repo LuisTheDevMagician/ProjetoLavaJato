@@ -1,4 +1,5 @@
 import PrismaClient from '../../prisma'
+import {hash} from 'bcryptjs';
 
 interface FuncionarioRequest{
     nome: string;
@@ -25,12 +26,14 @@ class CreateFuncionarioService {
       throw new Error('Funcionário já cadastrado com esse email');
     }
 
+    const senhaHash = await hash(senha, 8);
+
     //criação do funcionário
     const funcionario = await PrismaClient.funcionario.create({
         data: {
             nome: nome,
             email: email,
-            senha: senha,
+            senha: senhaHash,
         },
         select: {
             id: true,
