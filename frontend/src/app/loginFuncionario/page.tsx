@@ -1,4 +1,4 @@
-import styles from './page.module.scss';
+import styles from '../page.module.scss';
 import logoImg from '/public/pinheiro.svg';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ async function handleLogin(formData: FormData){
   }
 
   try {
-   const response = await api.post("/loginC", {
+   const response = await api.post("/loginF", {
       email,
       senha
     });
@@ -44,7 +44,7 @@ async function handleLogin(formData: FormData){
     console.error('Erro ao fazer login:', error);
   }
 
-  redirect('/dashboard');
+  redirect('/dashBoardFn');
 }
 
 
@@ -57,7 +57,7 @@ export default function Page() {
 
       <section className={styles.login}>
         <form action={handleLogin}>
-          <h1>Login Clientes</h1>
+          <h1>Login Funcionários</h1>
           <input type="email"
           required 
           name="email"
@@ -76,11 +76,9 @@ export default function Page() {
             Acessar
           </button>
 
-          <Link href="/registrar" className={styles.text}>
-            Não possui uma conta? Cadastre-se
-          </Link>
-          <Link href="/loginFuncionario" className={styles.text}>
-            Login Funcionários
+        
+          <Link href="/" className={styles.text}>
+            Voltar
           </Link>
 
         </form>

@@ -56,6 +56,7 @@ const upload = multer(uploadconfig.upload("./tmp"));
 //------------------ROTAS FUNCIONARIOS------------------
 router.post('/funcionarios', isAutenticado, new CreateFuncionarioController().handle);
 router.post('/loginF', new AutFuncionarioController().handle);
+//rota para puxar autenticação de login
 router.get('/funcionarioInfo', isAutenticado, new DetalheFuncionarioController().handle);
 router.delete('/funcionariosDelete', isAutenticado, new DeleteFuncionarioController().handle);
 router.get('/funcionariosList', isAutenticado, new ListFuncionarioController().handle);
@@ -63,36 +64,37 @@ router.put('/funcionariosEdit', isAutenticado, new EditFuncionarioController().h
 
 //------------------ROTAS CLIENTES------------------
 router.post('/clientes', new CreateClienteController().handle);
-router.post('/loginC', new AutClienteController().handle);
+router.post('/loginC',  new AutClienteController().handle);
+//rota para puxar autenticação de login
 router.get('/clienteInfo', isAutenticado, new DetalheClienteController().handle);
 router.delete('/clientesDelete', isAutenticado, new DeleteClienteController().handle);
 router.get('/clientesList', isAutenticado, new ListClienteController().handle);
 router.put('/clientesEdit', isAutenticado, new EditClienteController().handle);
 
 //------------------ROTAS CATEGORIA PRODUTO------------------
-router.post('/categoriaProduto', new CreateCaProdutoController().handle);
-router.get('/categoriaProdutoList',  new ListCaProdutoController().handle);
-router.delete('/categoriaProdutoDelete',  new DeleteCaProdutoController().handle);
-router.put('/categoriaProdutoEdit',  new EditCaProdutoController().handle);
+router.post('/categoriaProduto', isAutenticado,new CreateCaProdutoController().handle);
+router.get('/categoriaProdutoList', isAutenticado, new ListCaProdutoController().handle);
+router.delete('/categoriaProdutoDelete', isAutenticado, new DeleteCaProdutoController().handle);
+router.put('/categoriaProdutoEdit', isAutenticado, new EditCaProdutoController().handle);
 
 //------------------ROTAS CATEGORIA VEICULO------------------
-router.post('/categoriaVeiculo', new CreateCaVeiculoController().handle);
-router.get('/categoriaVeiculoList', new ListCaVeiculoController().handle);
-router.delete('/categoriaVeiculoDelete', new DeleteCaVeiculoController().handle);
-router.put('/categoriaVeiculoEdit', new EditCaVeiculoController().handle);
+router.post('/categoriaVeiculo', isAutenticado, new CreateCaVeiculoController().handle);
+router.get('/categoriaVeiculoList', isAutenticado, new ListCaVeiculoController().handle);
+router.delete('/categoriaVeiculoDelete', isAutenticado, new DeleteCaVeiculoController().handle);
+router.put('/categoriaVeiculoEdit', isAutenticado, new EditCaVeiculoController().handle);
 
 //------------------ROTAS CATEGORIA SERVICO------------------
-router.post('/categoriaServico',  new CreateCaServicoController().handle);
-router.get('/categoriaServicoList', new ListCaServicoController().handle);
-router.delete('/categoriaServicoDelete', new DeleteCaServicoController().handle);
-router.put('/categoriaServicoEdit', new EditCaServicoController().handle);
+router.post('/categoriaServico', isAutenticado, new CreateCaServicoController().handle);
+router.get('/categoriaServicoList', isAutenticado, new ListCaServicoController().handle);
+router.delete('/categoriaServicoDelete', isAutenticado, new DeleteCaServicoController().handle);
+router.put('/categoriaServicoEdit', isAutenticado, new EditCaServicoController().handle);
 
 //------------------ROTAS PRODUTOS------------------
-router.post('/produtos', upload.single('file'), new CreateProdutoController().handle);
-router.get('/produtosList',  new ListByCaProdutoController().handle);
+router.post('/produtos', isAutenticado, upload.single('file'), new CreateProdutoController().handle);
+router.get('/produtosList', isAutenticado, new ListByCaProdutoController().handle);
 
 //------------------ROTAS VENDAS------------------
-router.post('/vendas',  new CreateVendaController().handle);
-router.post('/addProdutoVenda',  new AddProdutoVendaController().handle);
+router.post('/vendas', isAutenticado, new CreateVendaController().handle);
+router.post('/addProdutoVenda', isAutenticado, new AddProdutoVendaController().handle);
 
 export{router};
