@@ -61,7 +61,7 @@ class EditClienteService {
         // Remover a senha do objeto retornado por segurança
         const { created_at, funcao, senha: _, ...clienteSemSenha } = clienteAtualizado;
 
-        return clienteSemSenha;
+        return { message: 'Cliente editado com sucesso', ...clienteSemSenha };
     }
 }
 

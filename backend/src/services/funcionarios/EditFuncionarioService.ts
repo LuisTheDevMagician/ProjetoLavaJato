@@ -56,7 +56,7 @@ class EditFuncionarioService {
         // Remover a senha do objeto retornado por segurança
         const { created_at, funcao, senha: _, ...funcionarioSemSenha } = funcionarioAtualizado;
 
-        return funcionarioSemSenha;
+        return { message: 'Funcionário editado com sucesso', ...funcionarioSemSenha };
     }
 }
 
