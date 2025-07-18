@@ -50,6 +50,7 @@ model Cliente {
   @@map("clientes")
   veiculos Veiculo[]
   servicos Servico[]
+  vendas Venda[]
 }
 
 model CategoriaVeiculo {
@@ -135,29 +136,26 @@ model Produto {
 
   @@map("produtos")
   categoriaProdutoId Int
-  vendas Venda[]
   produtoVendas ProdutoVenda[]
 }
 
 model Venda {
   id Int @id @default(autoincrement())
-  valorTotal Decimal @db.Decimal(10, 2)
+  valorTotal Decimal? @db.Decimal(10, 2)
   status Status @default(EM_ANDAMENTO)
   created_at DateTime? @default(now())
   uptadet_at DateTime? @default(now())
 
-  produto Produto @relation(fields: [produtoId], references: [id])
-  
+  cliente Cliente @relation(fields: [clienteId], references: [id])
 
   @@map("vendas")
-  produtoId Int
+  clienteId Int
   produtoVendas ProdutoVenda[]
 }
 
 model ProdutoVenda {
   id Int @id @default(autoincrement())
   quantidade Int
-  valorUnitario Decimal @db.Decimal(10, 2)
   created_at DateTime? @default(now())
   uptadet_at DateTime? @default(now())
 

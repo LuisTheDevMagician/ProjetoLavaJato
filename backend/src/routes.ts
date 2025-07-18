@@ -1,4 +1,5 @@
 import express, {Router} from 'express';
+import multer from 'multer';
 
 
 //------------------FUNCIONARIOS------------------
@@ -35,10 +36,22 @@ import { ListCaServicoController } from './controllers/categoriaServico/ListCaSe
 import { DeleteCaServicoController } from './controllers/categoriaServico/DeleteCaServicoController';
 import { EditCaServicoController } from './controllers/categoriaServico/EditCaServicoController';
 
+//------------------PRODUTOS------------------
+import { CreateProdutoController } from './controllers/produtos/CreateProdutoController';
+import { ListByCaProdutoController } from './controllers/produtos/ListCaProdutoController';
+
+//------------------VENDAS------------------
+import { CreateVendaController } from './controllers/vendas/CreateVendaController';
+import { AddProdutoVendaController } from './controllers/vendas/AddProdutoVendaController';
+
 //------------------MIDDLEWARES------------------
 import { isAutenticado } from './middlewares/isAutenticado';
 
+//------------------multer------------------
+import uploadconfig from './config/multer';
+
 const router = Router();
+const upload = multer(uploadconfig.upload("./tmp"));
 
 //------------------ROTAS FUNCIONARIOS------------------
 router.post('/funcionarios', isAutenticado, new CreateFuncionarioController().handle);
@@ -73,5 +86,13 @@ router.post('/categoriaServico',  new CreateCaServicoController().handle);
 router.get('/categoriaServicoList', new ListCaServicoController().handle);
 router.delete('/categoriaServicoDelete', new DeleteCaServicoController().handle);
 router.put('/categoriaServicoEdit', new EditCaServicoController().handle);
+
+//------------------ROTAS PRODUTOS------------------
+router.post('/produtos', upload.single('file'), new CreateProdutoController().handle);
+router.get('/produtosList',  new ListByCaProdutoController().handle);
+
+//------------------ROTAS VENDAS------------------
+router.post('/vendas',  new CreateVendaController().handle);
+router.post('/addProdutoVenda',  new AddProdutoVendaController().handle);
 
 export{router};

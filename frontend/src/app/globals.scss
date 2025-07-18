@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+:root{
+    --white: #fff;
+    --black: #000;
+
+    --dark-900: #101026;
+    --blue-rcraft: #9BC1BCFF;
+
+    --yellow-craft:#F4F1BB;
+
+    --gray-100: #8a8a8a;
+    --green-900: #3fffa3;
+    --red-900: #ff3f3f;
+}
+
+button{
+    cursor: pointer;
+}
+
+a{
+    color: inherit;
+    text-rendering: none;
+}
+
+body{
+    background: var(--blue-rcraft);
+}
+
+body, input, textarea, button{
+    font: 400, 1rem sans-serif;
+}
+
+@media(max-width: 1080px){
+    html{
+        font-size: 93.75%; 
+    }
+}

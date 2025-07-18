@@ -1,0 +1,71 @@
+.containerCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 1rem; /* Adiciona um padding para evitar que elementos toquem as bordas */
+  box-sizing: border-box; /* Garante que o padding não some à largura total */
+}
+
+.login {
+  background: var(--yellow-craft);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Define uma largura máxima */
+  box-sizing: border-box; /* Importante para incluir padding na largura total */
+
+  h1 {
+    color: var(--blue-rcraft);
+    margin-bottom: 1rem;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid var(--blue-rcraft);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  box-sizing: border-box; /* Isso faz com que o padding não aumente a largura total */
+}
+
+/* O restante do seu CSS pode permanecer igual */
+.button {
+  width: 100%;
+  padding: 12px;
+  background: var(--blue-rcraft);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Consistência */
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.text {
+  display: block;
+  margin-top: 1rem;
+  color: var(--blue-rcraft);
+  text-decoration: none;
+}
+
+.text:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .login {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .input {
+    padding: 10px 12px;
+  }
+}
