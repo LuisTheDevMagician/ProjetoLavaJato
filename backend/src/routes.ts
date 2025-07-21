@@ -49,15 +49,16 @@ import { isAutenticado } from './middlewares/isAutenticado';
 
 //------------------multer------------------
 import uploadconfig from './config/multer';
+import { isFuncionario } from './middlewares/isFuncionario';
 
 const router = Router();
 const upload = multer(uploadconfig.upload("./tmp"));
 
 //------------------ROTAS FUNCIONARIOS------------------
-router.post('/funcionarios', isAutenticado, new CreateFuncionarioController().handle);
+router.post('/funcionarios', isFuncionario, new CreateFuncionarioController().handle);
 router.post('/loginF', new AutFuncionarioController().handle);
 //rota para puxar autenticação de login
-router.get('/funcionarioInfo', isAutenticado, new DetalheFuncionarioController().handle);
+router.get('/funcionarioInfo', isFuncionario, new DetalheFuncionarioController().handle);
 router.delete('/funcionariosDelete', isAutenticado, new DeleteFuncionarioController().handle);
 router.get('/funcionariosList', isAutenticado, new ListFuncionarioController().handle);
 router.put('/funcionariosEdit', isAutenticado, new EditFuncionarioController().handle);

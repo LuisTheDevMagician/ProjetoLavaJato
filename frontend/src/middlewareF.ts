@@ -17,9 +17,9 @@ export async function middleware(req: NextRequest) {
             return NextResponse.redirect(new URL("/", req.url));
         }
 
-        const isValidToken = await validarToken(token);
+        const isValidFuncionario = await validarFuncionario(token);
 
-        if(!isValidToken){
+        if(!isValidFuncionario){
             return NextResponse.redirect(new URL("/", req.url));
         }
     }
@@ -28,21 +28,26 @@ export async function middleware(req: NextRequest) {
     
 }
 
-async function validarToken(token: string){
+async function validarFuncionario(token: string){
     if(!token){
         return false;
     }
 
     try {
-        await api.get("/funcionarioInfo",{
+        const response = await api.get("/funcionarioInfo",{
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })
+        });
 
-        return true;
+        const funcionario = response.data;
+        if(funcionario && (funcionario.funcao === 'FUNCIONARIO')){
+            return true;
+        }
 
-    }catch (err) {
+        return false;
+
+    } catch (err) {
         return false;
     }
 }

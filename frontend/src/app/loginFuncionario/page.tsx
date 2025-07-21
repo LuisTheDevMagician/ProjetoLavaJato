@@ -1,3 +1,4 @@
+
 import styles from '../page.module.scss';
 import logoImg from '/public/pinheiro.svg';
 import Image from 'next/image';
@@ -12,7 +13,6 @@ async function handleLogin(formData: FormData){
   const email = formData.get("email");
   const senha = formData.get("senha");
 
-
   if(email === '' || senha === ''){
     return;
   }
@@ -23,8 +23,13 @@ async function handleLogin(formData: FormData){
       senha
     });
     
-
     console.log('Login response:', response.data);
+
+    // ADICIONADO: Verificar se o usuário é funcionário
+    if(response.data.funcao !== 'FUNCIONARIO'){
+      console.error('Acesso negado: usuário não é funcionário');
+      return;
+    }
 
     const expressTime = 60 * 60 * 24 * 30 * 1000; 
     const cookieStore = await cookies();
@@ -34,7 +39,15 @@ async function handleLogin(formData: FormData){
       path: '/',
       httpOnly: false,
       secure: process.env.NODE_ENV === 'production'
-    })
+    });
+
+    // Salvar função do usuário no cookie
+    cookieStore.set('user_funcao', response.data.funcao,{
+      maxAge: expressTime,
+      path: '/',
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production'
+    });
 
     if(!response.data.token){
       return;
@@ -42,12 +55,11 @@ async function handleLogin(formData: FormData){
 
   } catch (error) {
     console.error('Erro ao fazer login:', error);
+    return;
   }
 
   redirect('/dashBoardFn');
 }
-
-
 
 export default function Page() {
   return (
@@ -76,7 +88,6 @@ export default function Page() {
             Acessar
           </button>
 
-        
           <Link href="/" className={styles.text}>
             Voltar
           </Link>
@@ -87,4 +98,3 @@ export default function Page() {
     </>
   );
 }
-       

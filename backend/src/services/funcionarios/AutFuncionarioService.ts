@@ -32,7 +32,8 @@ class AutFuncionarioService {
         const token = sign(
             {
                 nome: funcionario.nome,
-                email: funcionario.email
+                email: funcionario.email,
+                funcao: funcionario.funcao
             },
             process.env.JWT_SECRET,
             {
@@ -46,6 +47,7 @@ class AutFuncionarioService {
             id: funcionario.id,
             nome: funcionario.nome,
             email: funcionario.email,
+            funcao: funcionario.funcao,
             token: token
         }
     }
