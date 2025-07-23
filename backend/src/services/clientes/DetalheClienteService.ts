@@ -10,7 +10,8 @@ class DetalheClienteService {
             select: {
                 id: true,
                 nome: true,
-                email: true
+                email: true,
+                funcao: true
             }
         });
 

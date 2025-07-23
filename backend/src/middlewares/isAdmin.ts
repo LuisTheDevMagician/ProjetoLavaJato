@@ -7,33 +7,33 @@ interface TokenPayload {
     funcao: string;
 }
 
-export function isAutenticado(request: Request, response: Response, next: Function) {
+export function isAdmin(request: Request, response: Response, next: Function) {
     const autToken = request.headers.authorization;
 
     if (!autToken) {
-        return response.status(401).end();
+        return response.status(401).json({ error: "Token não fornecido" });
     }
 
     const [, token] = autToken.split(" ");
 
     try {
-
         const { sub, funcao } = verify(token, process.env.JWT_SECRET) as TokenPayload;
 
-        if(funcao !== 'CLIENTE') {
-            return response.status(403).json({ error: "Acesso negado. Apenas clientes podem acessar esta rota." });
+        // Verificar se a função é Administrador
+        if (funcao !== 'ADMIN') {
+            return response.status(403).json({ error: "Acesso negado. Apenas administradores podem acessar esta rota." });
         }
 
         // Verificar se o usuário ainda existe e tem a função correta
-        prismaClient.cliente.findFirst({
+        prismaClient.funcionario.findFirst({
             where: {
                 id: Number(sub),
                 funcao: {
-                    in: ['CLIENTE']
+                    in: ['ADMIN']
                 }
             }
-        }).then(cliente => {
-            if (!cliente) {
+        }).then(funcionario => {
+            if (!funcionario) {
                 return response.status(403).json({ error: "Usuário não encontrado ou sem permissão." });
             }
 
@@ -44,7 +44,7 @@ export function isAutenticado(request: Request, response: Response, next: Functi
             return response.status(500).json({ error: "Erro interno do servidor" });
         });
 
-    }catch (err) {
-        return response.status(401).end();
+    } catch (err) {
+        return response.status(401).json({ error: "Token inválido" });
     }
 }

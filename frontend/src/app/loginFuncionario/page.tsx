@@ -41,13 +41,6 @@ async function handleLogin(formData: FormData){
       secure: process.env.NODE_ENV === 'production'
     });
 
-    // Salvar função do usuário no cookie
-    cookieStore.set('user_funcao', response.data.funcao,{
-      maxAge: expressTime,
-      path: '/',
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production'
-    });
 
     if(!response.data.token){
       return;

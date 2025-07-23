@@ -1,4 +1,5 @@
-import styles from './page.module.scss';
+
+import styles from '../page.module.scss';
 import logoImg from '/public/pinheiro.svg';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,24 +13,23 @@ async function handleLogin(formData: FormData){
   const email = formData.get("email");
   const senha = formData.get("senha");
 
-
   if(email === '' || senha === ''){
     return;
   }
 
   try {
-   const response = await api.post("/loginC", {
+   const response = await api.post("/loginF", {
       email,
       senha
     });
+    
+    console.log('Login response:', response.data);
 
-    if(response.data.funcao !== 'CLIENTE'){
-      console.error('Acesso negado: usuário não é cliente');
+    // ADICIONADO: Verificar se o usuário é administrador
+    if(response.data.funcao !== 'ADMIN'){
+      console.error('Acesso negado: usuário não é administrador');
       return;
     }
-    
-
-    console.log('Login response:', response.data);
 
     const expressTime = 60 * 60 * 24 * 30 * 1000; 
     const cookieStore = await cookies();
@@ -39,7 +39,8 @@ async function handleLogin(formData: FormData){
       path: '/',
       httpOnly: false,
       secure: process.env.NODE_ENV === 'production'
-    })
+    });
+
 
     if(!response.data.token){
       return;
@@ -47,12 +48,11 @@ async function handleLogin(formData: FormData){
 
   } catch (error) {
     console.error('Erro ao fazer login:', error);
+    return;
   }
 
-  redirect('/dashboard');
+  redirect('/dashBoardAdmin');
 }
-
-
 
 export default function Page() {
   return (
@@ -62,7 +62,7 @@ export default function Page() {
 
       <section className={styles.login}>
         <form action={handleLogin}>
-          <h1>Login Clientes</h1>
+          <h1>Login Administradores</h1>
           <input type="email"
           required 
           name="email"
@@ -81,11 +81,8 @@ export default function Page() {
             Acessar
           </button>
 
-          <Link href="/registrar" className={styles.text}>
-            Não possui uma conta? Cadastre-se
-          </Link>
-          <Link href="/loginFuncionario" className={styles.text}>
-            Login Funcionários
+          <Link href="/" className={styles.text}>
+            Voltar
           </Link>
 
         </form>
@@ -94,4 +91,3 @@ export default function Page() {
     </>
   );
 }
-       

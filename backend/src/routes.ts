@@ -46,22 +46,25 @@ import { AddProdutoVendaController } from './controllers/vendas/AddProdutoVendaC
 
 //------------------MIDDLEWARES------------------
 import { isAutenticado } from './middlewares/isAutenticado';
+import { isFuncionario } from './middlewares/isFuncionario';
+import { isAdmin } from './middlewares/isAdmin';
 
 //------------------multer------------------
 import uploadconfig from './config/multer';
-import { isFuncionario } from './middlewares/isFuncionario';
+
 
 const router = Router();
 const upload = multer(uploadconfig.upload("./tmp"));
 
 //------------------ROTAS FUNCIONARIOS------------------
-router.post('/funcionarios', isFuncionario, new CreateFuncionarioController().handle);
+router.post('/funcionarios', isAdmin, new CreateFuncionarioController().handle);
 router.post('/loginF', new AutFuncionarioController().handle);
 //rota para puxar autenticação de login
 router.get('/funcionarioInfo', isFuncionario, new DetalheFuncionarioController().handle);
-router.delete('/funcionariosDelete', isAutenticado, new DeleteFuncionarioController().handle);
-router.get('/funcionariosList', isAutenticado, new ListFuncionarioController().handle);
-router.put('/funcionariosEdit', isAutenticado, new EditFuncionarioController().handle);
+router.get('/adminInfo', isAdmin, new DetalheFuncionarioController().handle);
+router.delete('/funcionariosDelete', isAdmin, new DeleteFuncionarioController().handle);
+router.get('/funcionariosList', isAdmin, new ListFuncionarioController().handle);
+router.put('/funcionariosEdit', isAdmin, new EditFuncionarioController().handle);
 
 //------------------ROTAS CLIENTES------------------
 router.post('/clientes', new CreateClienteController().handle);
@@ -73,25 +76,25 @@ router.get('/clientesList', isAutenticado, new ListClienteController().handle);
 router.put('/clientesEdit', isAutenticado, new EditClienteController().handle);
 
 //------------------ROTAS CATEGORIA PRODUTO------------------
-router.post('/categoriaProduto', isAutenticado,new CreateCaProdutoController().handle);
-router.get('/categoriaProdutoList', isAutenticado, new ListCaProdutoController().handle);
-router.delete('/categoriaProdutoDelete', isAutenticado, new DeleteCaProdutoController().handle);
-router.put('/categoriaProdutoEdit', isAutenticado, new EditCaProdutoController().handle);
+router.post('/categoriaProduto', isAdmin, new CreateCaProdutoController().handle);
+router.get('/categoriaProdutoList', isAdmin, new ListCaProdutoController().handle);
+router.delete('/categoriaProdutoDelete', isAdmin, new DeleteCaProdutoController().handle);
+router.put('/categoriaProdutoEdit', isAdmin, new EditCaProdutoController().handle);
 
 //------------------ROTAS CATEGORIA VEICULO------------------
-router.post('/categoriaVeiculo', isAutenticado, new CreateCaVeiculoController().handle);
-router.get('/categoriaVeiculoList', isAutenticado, new ListCaVeiculoController().handle);
-router.delete('/categoriaVeiculoDelete', isAutenticado, new DeleteCaVeiculoController().handle);
-router.put('/categoriaVeiculoEdit', isAutenticado, new EditCaVeiculoController().handle);
+router.post('/categoriaVeiculo', isAdmin, new CreateCaVeiculoController().handle);
+router.get('/categoriaVeiculoList', isAdmin, new ListCaVeiculoController().handle);
+router.delete('/categoriaVeiculoDelete', isAdmin, new DeleteCaVeiculoController().handle);
+router.put('/categoriaVeiculoEdit', isAdmin, new EditCaVeiculoController().handle);
 
 //------------------ROTAS CATEGORIA SERVICO------------------
-router.post('/categoriaServico', isAutenticado, new CreateCaServicoController().handle);
-router.get('/categoriaServicoList', isAutenticado, new ListCaServicoController().handle);
-router.delete('/categoriaServicoDelete', isAutenticado, new DeleteCaServicoController().handle);
-router.put('/categoriaServicoEdit', isAutenticado, new EditCaServicoController().handle);
+router.post('/categoriaServico', isAdmin, new CreateCaServicoController().handle);
+router.get('/categoriaServicoList', isAdmin, new ListCaServicoController().handle);
+router.delete('/categoriaServicoDelete', isAdmin, new DeleteCaServicoController().handle);
+router.put('/categoriaServicoEdit', isAdmin, new EditCaServicoController().handle);
 
 //------------------ROTAS PRODUTOS------------------
-router.post('/produtos', isAutenticado, upload.single('file'), new CreateProdutoController().handle);
+router.post('/produtos', isAdmin, upload.single('file'), new CreateProdutoController().handle);
 router.get('/produtosList', isAutenticado, new ListByCaProdutoController().handle);
 
 //------------------ROTAS VENDAS------------------
