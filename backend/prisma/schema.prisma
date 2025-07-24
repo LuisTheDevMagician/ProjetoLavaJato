@@ -132,10 +132,12 @@ model Produto {
   created_at DateTime? @default(now())
   uptadet_at DateTime? @default(now())
 
+
+  categoriaProdutoId Int
   categoriaProduto CategoriaProduto @relation(fields: [categoriaProdutoId], references: [id])
 
   @@map("produtos")
-  categoriaProdutoId Int
+  
   produtoVendas ProdutoVenda[]
 }
 

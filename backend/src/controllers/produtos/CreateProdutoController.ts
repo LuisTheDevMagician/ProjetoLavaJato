@@ -2,26 +2,46 @@ import {Request,Response} from 'express';
 import { CreateProdutoService } from '../../services/produtos/CreateProdutoService';
 
 class CreateProdutoController {
-  async handle(req: Request, res: Response) {
-    const { nome, valor, quantidade, categoriaProdutoId } = req.body;
+  async handle(req, res) {
+    try {
+      const { nome, valor, quantidade, categoriaProdutoId } = req.body;
 
-    const createProdutoService = new CreateProdutoService();
+      // Garantir que o arquivo foi enviado
+      if (!req.file) {
+        return res.status(400).json({ error: "Imagem não enviada" });
+      }
 
-    if(!req.file) {
-      throw new Error("Erro ao enviar imagem");
-    }else{
+      const imagem = req.file.filename;
 
-      const {originalname, filename: imagem} = req.file;
+      // Conversões seguras
+      const valorNumber = Number(valor);
+      const quantidadeNumber = Number(quantidade);
+      const categoriaIdNumber = Number(categoriaProdutoId);
+
+      // Validação mínima
+      if (
+        !nome ||
+        isNaN(valorNumber) ||
+        isNaN(quantidadeNumber) ||
+        isNaN(categoriaIdNumber)
+      ) {
+        return res.status(400).json({ error: "Dados inválidos no corpo da requisição" });
+      }
+
+      const createProdutoService = new CreateProdutoService();
 
       const produto = await createProdutoService.execute({
-      nome,
-      valor,
-      quantidade,
-      imagem,
-      categoriaProdutoId
-    });
+        nome,
+        valor: valorNumber,
+        quantidade: quantidadeNumber,
+        imagem,
+        categoriaProdutoId: categoriaIdNumber,
+      });
 
-    return res.json(produto);
+      return res.json(produto);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erro interno ao cadastrar produto" });
     }
   }
 }
