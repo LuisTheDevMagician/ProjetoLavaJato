@@ -7,7 +7,8 @@ import Image from 'next/image';
 import { Button } from '@/app/dashBoardAdmin/components/button';
 import { api } from '@/services/api';
 import {getCookieClient} from "@/lib/cookieClient";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import {toast} from "sonner";
 
 interface CategoriasPropiedade{
   id: string;
@@ -19,7 +20,7 @@ interface Propiedades{
 }
 
 export function ProdutoForm({ categorias }: Propiedades) {
-
+    const router = useRouter();
     const [image, setImage] = useState<File>();
     const [imagePreview, setImagePreview] = useState("");
 
@@ -30,6 +31,7 @@ export function ProdutoForm({ categorias }: Propiedades) {
         const quantidade = formData.get('quantidade');
 
         if(!nome || !valor || !quantidade || !categoriaIndex || !image){ 
+            toast.warning('Por favor, preencha todos os campos!');
             return;
         }
 
@@ -52,12 +54,14 @@ export function ProdutoForm({ categorias }: Propiedades) {
         })
         .catch((error) => {
             console.error(error);
+            toast.warning('Erro ao cadastrar produto, tente novamente!');
             return;
         });
 
-        redirect('/dashBoardAdmin/produto');
+        toast.success('Produto cadastrado com sucesso!');
 
-        
+        router.push('/dashBoardAdmin/produto');
+
     }
 
     function handleFile(event: ChangeEvent<HTMLInputElement>){

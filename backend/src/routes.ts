@@ -39,10 +39,16 @@ import { EditCaServicoController } from './controllers/categoriaServico/EditCaSe
 //------------------PRODUTOS------------------
 import { CreateProdutoController } from './controllers/produtos/CreateProdutoController';
 import { ListByCaProdutoController } from './controllers/produtos/ListCaProdutoController';
+import { ListProdutoController } from './controllers/produtos/ListProdutoController';
 
 //------------------VENDAS------------------
 import { CreateVendaController } from './controllers/vendas/CreateVendaController';
 import { AddProdutoVendaController } from './controllers/vendas/AddProdutoVendaController';
+import { ListVendasService } from './services/vendas/ListarVendasService';
+import { ListVendaByClienteController } from './controllers/vendas/ListVendaByClienteController';
+import { UpdateStatusVendaController } from "./controllers/vendas/UpdateStatusVendaController";
+
+
 
 //------------------MIDDLEWARES------------------
 import { isAutenticado } from './middlewares/isAutenticado';
@@ -51,6 +57,7 @@ import { isAdmin } from './middlewares/isAdmin';
 
 //------------------multer------------------
 import uploadconfig from './config/multer';
+import { ListVendasController } from './controllers/vendas/ListVendasController';
 
 
 const router = Router();
@@ -95,10 +102,16 @@ router.put('/categoriaServicoEdit', isAdmin, new EditCaServicoController().handl
 
 //------------------ROTAS PRODUTOS------------------
 router.post('/produtos', isAdmin, upload.single('file'), new CreateProdutoController().handle);
-router.get('/produtosList', isAutenticado, new ListByCaProdutoController().handle);
+router.get('/produtosListCategoria', isAdmin, new ListByCaProdutoController().handle);
+router.get('/produtosListAll', isAdmin, new ListProdutoController().handle);
 
 //------------------ROTAS VENDAS------------------
 router.post('/vendas', isAutenticado, new CreateVendaController().handle);
 router.post('/addProdutoVenda', isAutenticado, new AddProdutoVendaController().handle);
+router.get('/vendasList', new ListVendasController().handle);
+router.get('/vendasclientes', isAutenticado,new ListVendaByClienteController().handle);
+router.patch("/vendastatus", new UpdateStatusVendaController().handle);
+
+
 
 export{router};

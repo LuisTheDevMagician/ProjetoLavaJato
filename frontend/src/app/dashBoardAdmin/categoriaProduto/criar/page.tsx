@@ -27,10 +27,10 @@ export default function CriarCategoriaProduto() {
     })
     .catch ((error) => {  
       console.error( error);
-      return;
+      redirect('/dashBoardAdmin/categoriaProduto?status=error');
     });
 
-    redirect('/dashBoardAdmin/categoriaProduto');
+    redirect('/dashBoardAdmin/categoriaProduto?status=success');
 
   }
 

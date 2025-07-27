@@ -38,7 +38,8 @@ async function handleLogin(formData: FormData){
       maxAge: expressTime,
       path: '/',
       httpOnly: false,
-      secure: process.env.NODE_ENV === 'production'
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax'
     });
 
 

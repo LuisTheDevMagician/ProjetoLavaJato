@@ -1,0 +1,15 @@
+.button {
+    height: 40px;
+    background-color: var(--yellow-craft);
+    color: var(--blue-rcraft);
+    border: 0;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.6rem;
+
+    &:hover {
+    background-color: var(--yellow-craft);
+    color: var(--red-900);
+    transform: scale(1.02);
+    }
+}

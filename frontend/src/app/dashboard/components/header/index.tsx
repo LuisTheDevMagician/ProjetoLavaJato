@@ -15,13 +15,13 @@ export default function Header() {
   async function handleLogout() {
     deleteCookie('token', { path: '/' });
     toast.success('Logout realizado com sucesso!');
-    router.replace('/loginAdmin');
+    router.replace('/');
   }
 
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Link href={'/dashBoardAdmin'} className={styles.logo}>
+        <Link href={'/dashboard'} className={styles.logo}>
           <Image
             alt="Logo"
             src={logoImg}
@@ -33,7 +33,7 @@ export default function Header() {
         </Link>
 
         <h1>
-          Painel de Controle - Administradores
+          Seja bem-vindo Magnata
         </h1>
 
         <form action={handleLogout}>
