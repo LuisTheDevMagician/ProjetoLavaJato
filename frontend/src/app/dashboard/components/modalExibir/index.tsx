@@ -6,13 +6,10 @@ import {use} from 'react';
 import {VendaContext} from "@/providers/venda";
 import {calcularTotalVenda} from "@/lib/helper";
 
-export function ModalVenda(){
+export function ModalVendaExibir(){
 
-    const {onRequestClose, venda, finalizarVenda} = use(VendaContext);
+    const {onRequestClose, venda} = use(VendaContext);
 
-    async function handleFinalizarVenda() {
-        await finalizarVenda(venda[0].venda.id);
-    }
 
     return(
        <dialog className={styles.dialogContainer}>
@@ -41,10 +38,6 @@ export function ModalVenda(){
           ))}
 
           <h3>Valor total do pedido: <b>R$ {calcularTotalVenda(venda).toFixed(2)}</b></h3>
-
-          <button className={styles.buttonOrder} onClick={handleFinalizarVenda}>
-            Concluir pedido
-          </button>
 
         </article>
 

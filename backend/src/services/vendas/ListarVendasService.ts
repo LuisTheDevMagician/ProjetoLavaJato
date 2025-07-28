@@ -7,6 +7,9 @@ class ListVendasService {
             id:true,
             valorTotal:true,
         },
+        where: {
+            status: true,
+        },
         orderBy: {
             created_at: 'desc',
         },

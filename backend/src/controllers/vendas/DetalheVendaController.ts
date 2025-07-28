@@ -3,7 +3,7 @@ import { DetalheVendaService } from '../../services/vendas/DetalheVendaService';
 
 class DetalheVendaController {
     async handle(req: Request, res: Response) {
-        const vendaId = req.body.vendaId;
+        const vendaId = Number(req.query.vendaId); 
 
         const detalheVendaService = new DetalheVendaService();
 

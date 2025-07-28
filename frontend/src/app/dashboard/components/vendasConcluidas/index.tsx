@@ -4,7 +4,7 @@ import {use} from 'react';
 import styles from './styles.module.scss';
 import {RefreshCw} from 'lucide-react';
 import {VendaProipiedads} from "@/lib/venda.type";
-import {ModalVenda} from "@/app/dashboard/components/modal";
+import {ModalVendaExibir} from "@/app/dashboard/components/modalExibir";
 import {VendaContext} from "@/providers/venda";
 
 
@@ -12,7 +12,7 @@ interface Propiedades{
     vendas: VendaProipiedads[];
 }
 
-export function Vendas({vendas}: Propiedades){
+export function VendasConcluidas({vendas}: Propiedades){
 
     const {isOpen, onRequestOpen} = use(VendaContext);
 
@@ -25,7 +25,7 @@ export function Vendas({vendas}: Propiedades){
         <main className={styles.container}>
 
             <section className={styles.containerHeader}>
-                <h1>Últimas Compras</h1>
+                <h1>Histórico de Compras</h1>
                 <button>
                     <RefreshCw size={20} color="#000" />
                 </button>
@@ -43,7 +43,7 @@ export function Vendas({vendas}: Propiedades){
             </section>
         </main>
 
-        {isOpen && <ModalVenda />}
+        {isOpen && <ModalVendaExibir />}
     </>
     )
 }

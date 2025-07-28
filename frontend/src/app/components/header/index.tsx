@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Link href={'/dashboard'} className={styles.logo}>
+        <Link href={'/'} className={styles.logo}>
           <Image
             alt="Logo"
             src={logoImg}

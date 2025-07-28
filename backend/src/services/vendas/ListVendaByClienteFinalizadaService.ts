@@ -4,12 +4,12 @@ interface VendaRequest {
     clienteId: number;
 }
 
-class ListVendaByClientService {
+class ListVendaByClienteFinalizadaService {
     async execute({ clienteId }: VendaRequest) {
         const vendas = await prismaClient.venda.findMany({
             where: {
                 clienteId: clienteId,
-                status: false
+                status: true
             },         
             orderBy: {
                 created_at: 'desc'
@@ -20,4 +20,4 @@ class ListVendaByClientService {
     }
 }
 
-export { ListVendaByClientService };
+export { ListVendaByClienteFinalizadaService };

@@ -9,6 +9,9 @@ export default function Sidebar() {
       <nav className={styles.nav}>
         <ul>
           <li>
+            <Link href="/dashboard/comprar">Comprar</Link>
+          </li>
+          <li>
             <Link href="/dashboard/compras">Compras</Link>
           </li>
           <li>

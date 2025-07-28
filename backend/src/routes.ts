@@ -50,6 +50,7 @@ import { RemoveProdutoVendaController } from './controllers/vendas/RemoveProduto
 import { SendVendaController } from './controllers/vendas/SendVendaController';
 import { DetalheVendaController } from './controllers/vendas/DetalheVendaController';
 import { ConcluirVendaController } from './controllers/vendas/ConcluirVendaController';
+import {ListVendaByClienteFinalizadaController} from './controllers/vendas/ListVendaByClienteFinalizadaController';
 
 
 
@@ -106,7 +107,7 @@ router.put('/categoriaServicoEdit', isAdmin, new EditCaServicoController().handl
 //------------------ROTAS PRODUTOS------------------
 router.post('/produtos', isAdmin, upload.single('file'), new CreateProdutoController().handle);
 router.get('/produtosListCategoria', isAdmin, new ListByCaProdutoController().handle);
-router.get('/produtosListAll', isAdmin, new ListProdutoController().handle);
+router.get('/produtosListAll', isAutenticado, new ListProdutoController().handle);
 
 //------------------ROTAS VENDAS------------------
 router.post('/vendas', isAutenticado, new CreateVendaController().handle);
@@ -118,5 +119,6 @@ router.delete("/removeProdutoVenda",  isAutenticado, new RemoveProdutoVendaContr
 router.put("/sendVenda",  isAutenticado, new SendVendaController().handle);
 router.get("/detalheVenda",  isAutenticado, new DetalheVendaController().handle);
 router.put("/concluirVenda",  isAutenticado, new ConcluirVendaController().handle);
+router.get("/vendasclientesfinalizadas", isAutenticado, new ListVendaByClienteFinalizadaController().handle);
 
 export{router};
