@@ -2,7 +2,6 @@
 import styles from './styles.module.scss';
 import { getCookieServer } from "@/lib/cookieServer";
 import { api } from "@/services/api";
-import {DeleteIcon} from 'lucide-react';
 
 
 interface Produto {

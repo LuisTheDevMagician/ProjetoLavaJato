@@ -1,67 +1,64 @@
-// middleware.ts
+
 import { NextRequest, NextResponse } from 'next/server';
-import { getCookieServer } from '@/lib/cookieServer'; // Assumindo que este lê o cookie 'token'
+import { getCookieServer } from '@/lib/cookieServer'; 
 import { api } from '@/services/api';
 
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
 
-    // Ignora rotas internas do Next.js e a página inicial
+    
     if (pathname.startsWith("/_next") || pathname === "/") {
         return NextResponse.next();
     }
 
-    const token = await getCookieServer(); // Obtenha o token
+    const token = await getCookieServer(); 
 
-    // --- Proteção para Rotas de Cliente (ex: /dashboard) ---
-    // A rota '/dashboard' e suas sub-rotas
+    
     if (pathname.startsWith("/dashboard")) {
         if (!token) {
             console.warn('Redirecionando: Token não encontrado para /dashboard');
             return NextResponse.redirect(new URL("/", req.url));
         }
 
-        const isValidToken = await validarToken(token, 'CLIENTE'); // Passa o tipo de usuário esperado
+        const isValidToken = await validarToken(token, 'CLIENTE'); 
         if (!isValidToken) {
             console.warn('Redirecionando: Token inválido ou função incorreta para /dashboard');
             return NextResponse.redirect(new URL("/", req.url));
         }
     }
 
-    // --- Proteção para Rotas de Administrador (ex: /dashBoardAdmin) ---
-    // A rota '/dashBoardAdmin' e suas sub-rotas
+    
     if (pathname.startsWith("/dashBoardAdmin")) {
         if (!token) {
             console.warn('Redirecionando: Token não encontrado para /dashBoardAdmin');
-            return NextResponse.redirect(new URL("/loginFuncionario", req.url)); // Redireciona para o login de funcionário/admin
+            return NextResponse.redirect(new URL("/loginFuncionario", req.url)); 
         }
 
-        const isValidToken = await validarToken(token, 'ADMIN'); // Passa o tipo de usuário esperado
+        const isValidToken = await validarToken(token, 'ADMIN'); 
         if (!isValidToken) {
             console.warn('Redirecionando: Token inválido ou função incorreta para /dashBoardAdmin');
-            return NextResponse.redirect(new URL("/loginFuncionario", req.url)); // Redireciona para o login de funcionário/admin
+            return NextResponse.redirect(new URL("/loginFuncionario", req.url));
         }
     }
 
-    // --- NOVO: Proteção para Rotas de Funcionário (ex: /dashBoardFn) ---
-    // A rota '/dashBoardFn' e suas sub-rotas
+  
     if (pathname.startsWith("/dashBoardFn")) {
         if (!token) {
             console.warn('Redirecionando: Token não encontrado para /dashBoardFn');
-            return NextResponse.redirect(new URL("/loginFuncionario", req.url)); // Redireciona para o login de funcionário
+            return NextResponse.redirect(new URL("/loginFuncionario", req.url)); 
         }
 
-        const isValidToken = await validarToken(token, 'FUNCIONARIO'); // Passa o tipo de usuário esperado
+        const isValidToken = await validarToken(token, 'FUNCIONARIO'); 
         if (!isValidToken) {
             console.warn('Redirecionando: Token inválido ou função incorreta para /dashBoardFn');
-            return NextResponse.redirect(new URL("/loginFuncionario", req.url)); // Redireciona para o login de funcionário
+            return NextResponse.redirect(new URL("/loginFuncionario", req.url));
         }
     }
 
     return NextResponse.next();
 }
 
-// Função auxiliar para validar o token e verificar a função do usuário
+
 async function validarToken(token: string, expectedRole: 'CLIENTE' | 'ADMIN' | 'FUNCIONARIO') {
     if (!token) {
         return false;
@@ -77,10 +74,10 @@ async function validarToken(token: string, expectedRole: 'CLIENTE' | 'ADMIN' | '
                 endpoint = "/adminInfo";
                 break;
             case 'FUNCIONARIO':
-                endpoint = "/funcionarioInfo"; // Asumi que você tem um endpoint para funcionários
+                endpoint = "/funcionarioInfo"; 
                 break;
             default:
-                return false; // Role desconhecido
+                return false; 
         }
 
         const response = await api.get(endpoint, {
@@ -89,7 +86,7 @@ async function validarToken(token: string, expectedRole: 'CLIENTE' | 'ADMIN' | '
             }
         });
 
-        // Verifica se a função retornada pela API corresponde à função esperada
+       
         return response.data?.funcao === expectedRole;
 
     } catch (err) {
