@@ -44,9 +44,12 @@ import { ListProdutoController } from './controllers/produtos/ListProdutoControl
 //------------------VENDAS------------------
 import { CreateVendaController } from './controllers/vendas/CreateVendaController';
 import { AddProdutoVendaController } from './controllers/vendas/AddProdutoVendaController';
-import { ListVendasService } from './services/vendas/ListarVendasService';
 import { ListVendaByClienteController } from './controllers/vendas/ListVendaByClienteController';
-import { UpdateStatusVendaController } from "./controllers/vendas/UpdateStatusVendaController";
+import { RemoveVendaController } from './controllers/vendas/RemoveVendaController';
+import { RemoveProdutoVendaController } from './controllers/vendas/RemoveProdutoVendaController';
+import { SendVendaController } from './controllers/vendas/SendVendaController';
+import { DetalheVendaController } from './controllers/vendas/DetalheVendaController';
+import { ConcluirVendaController } from './controllers/vendas/ConcluirVendaController';
 
 
 
@@ -107,11 +110,13 @@ router.get('/produtosListAll', isAdmin, new ListProdutoController().handle);
 
 //------------------ROTAS VENDAS------------------
 router.post('/vendas', isAutenticado, new CreateVendaController().handle);
-router.post('/addProdutoVenda', isAutenticado, new AddProdutoVendaController().handle);
-router.get('/vendasList', new ListVendasController().handle);
-router.get('/vendasclientes', isAutenticado,new ListVendaByClienteController().handle);
-router.patch("/vendastatus", new UpdateStatusVendaController().handle);
-
-
+router.post('/addProdutoVenda',  isAutenticado,new AddProdutoVendaController().handle);
+router.get('/vendasList',  new ListVendasController().handle);
+router.get('/vendasclientes', isAutenticado, new ListVendaByClienteController().handle);
+router.delete("/vendasDelete",  isAutenticado, new RemoveVendaController().handle);
+router.delete("/removeProdutoVenda",  isAutenticado, new RemoveProdutoVendaController().handle);
+router.put("/sendVenda",  isAutenticado, new SendVendaController().handle);
+router.get("/detalheVenda",  isAutenticado, new DetalheVendaController().handle);
+router.put("/concluirVenda",  isAutenticado, new ConcluirVendaController().handle);
 
 export{router};

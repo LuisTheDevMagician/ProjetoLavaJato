@@ -3,15 +3,15 @@ import { ListVendaByClientService } from '../../services/vendas/ListVendaByClien
 
 class ListVendaByClienteController {
   async handle(req: Request, res: Response) {
-    const { clienteId } = req.query;
+    const clienteId = Number(req.user_id);
 
-    if (!clienteId || isNaN(Number(clienteId))) {
+    if (!clienteId || isNaN(clienteId)) {
       return res.status(400).json({ error: 'ID do cliente inválido.' });
     }
 
     const listVendaByClienteService = new ListVendaByClientService();
 
-    const vendas = await listVendaByClienteService.execute({ clienteId: Number(clienteId) });
+    const vendas = await listVendaByClienteService.execute({ clienteId });
 
     return res.json(vendas);
   }

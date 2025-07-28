@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import logoImg from '/public/pinheiro.svg';
-import { LogOutIcon } from 'lucide-react';
+import { User2Icon } from 'lucide-react';
 import { deleteCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation';
 import {toast} from "sonner";
@@ -12,16 +12,14 @@ import {toast} from "sonner";
 export default function Header() {
   const router = useRouter();
 
-  async function handleLogout() {
-    deleteCookie('token', { path: '/' });
-    toast.success('Logout realizado com sucesso!');
-    router.replace('/');
+  async function handleLogin() {
+   router.push('/login');
   }
 
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Link href={'/dashBoardAdmin'} className={styles.logo}>
+        <Link href={'/dashboard'} className={styles.logo}>
           <Image
             alt="Logo"
             src={logoImg}
@@ -33,12 +31,12 @@ export default function Header() {
         </Link>
 
         <h1>
-          Painel de Controle - Administradores
+          Seja bem-vindo Magnata
         </h1>
 
-        <form action={handleLogout}>
+        <form action={handleLogin}>
           <button type="submit">
-            <LogOutIcon size={30} />
+            <User2Icon size={30} />
           </button>
         </form>
       </div>

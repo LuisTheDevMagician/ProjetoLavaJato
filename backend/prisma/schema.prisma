@@ -96,7 +96,8 @@ model Servico {
   id Int @id @default(autoincrement())
   nomeSevico String
   valor Decimal @db.Decimal(10, 2)
-  status Status @default(PENDENTE)
+  status Boolean @default(false)
+  draft Boolean @default(true)
   maoDeObra Decimal @db.Decimal(10, 2)
   created_at DateTime? @default(now())
   uptadet_at DateTime? @default(now())
@@ -144,7 +145,8 @@ model Produto {
 model Venda {
   id Int @id @default(autoincrement())
   valorTotal Decimal? @db.Decimal(10, 2)
-  status Status @default(EM_ANDAMENTO)
+  status Boolean @default(false)
+  draft Boolean @default(true)
   created_at DateTime? @default(now())
   uptadet_at DateTime? @default(now())
 
@@ -169,12 +171,7 @@ model ProdutoVenda {
   produtoId Int
 }
 
-enum Status{
-  PENDENTE
-  EM_ANDAMENTO
-  FINALIZADO
-  CANCELADO
-}
+
 
 
 

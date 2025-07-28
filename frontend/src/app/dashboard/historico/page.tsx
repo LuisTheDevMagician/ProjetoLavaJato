@@ -9,7 +9,7 @@ import { toast } from "sonner";
 interface Venda {
   id: number;
   valor: number;
-  status: string;
+  status: boolean;
   created_at: string;
 }
 

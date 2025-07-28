@@ -9,7 +9,7 @@ class ListVendaByClientService {
         const vendas = await prismaClient.venda.findMany({
             where: {
                 clienteId: clienteId
-            },
+            },         
             orderBy: {
                 created_at: 'desc'
             }

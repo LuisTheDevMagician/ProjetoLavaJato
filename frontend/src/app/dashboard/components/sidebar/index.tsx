@@ -9,13 +9,10 @@ export default function Sidebar() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <Link href="/dashBoardAdmin/categoriaProduto">Solicitar Serviço</Link>
+            <Link href="/dashboard/compras">Compras</Link>
           </li>
           <li>
-            <Link href="/dashBoardAdmin/comprar">Comprar</Link>
-          </li>
-          <li>
-            <Link href="/dashboard/historico">Historico</Link>
+            <Link href="/dashboard/historico">Histórico</Link>
           </li>
         </ul>
       </nav>
