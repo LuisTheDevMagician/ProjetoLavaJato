@@ -5,12 +5,12 @@
   justify-content: center;
   min-height: calc(100vh - 80px); // Ajuste conforme a altura do seu header
   padding: 2rem;
-  background-color: #f5f5f5;
+  background-color: var(--blue-rcraft);
 }
 
 .title {
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--yellow-craft);
   font-size: 2rem;
 }
 
@@ -24,32 +24,20 @@
 
 .loginButton {
   padding: 1rem;
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--blue-rcraft);
+  color: var(--yellow-craft);
   text-align: center;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-weight: bold;
   transition: background-color 0.3s;
-  
+  border: solid 2px var(--yellow-craft);
+
   &:hover {
-    background-color: #45a049;
+    background-color: var(--yellow-craft);
+    color: var(--blue-rcraft);
+    scale: 1.05;
+    transition: transform 0.1s;
   }
   
-  // Você pode adicionar cores diferentes para cada tipo de login se quiser
-  &:nth-child(2) {
-    background-color: #2196F3;
-    
-    &:hover {
-      background-color: #0b7dda;
-    }
-  }
-  
-  &:nth-child(3) {
-    background-color: #f44336;
-    
-    &:hover {
-      background-color: #da190b;
-    }
-  }
 }

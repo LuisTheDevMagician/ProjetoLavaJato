@@ -15,6 +15,9 @@ export default function Sidebar() {
             <Link href="/dashBoardAdmin/produto">Produtos</Link>
           </li>
           <li>
+            <Link href="/dashBoardAdmin/categoriaVeiculo">Categoria de Veiculos</Link>
+          </li>
+          <li>
             <Link href="/dashBoardAdmin/usuarios">Usuários</Link>
           </li>
           <li>

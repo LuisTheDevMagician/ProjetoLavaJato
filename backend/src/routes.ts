@@ -53,6 +53,11 @@ import { ConcluirVendaController } from './controllers/vendas/ConcluirVendaContr
 import {ListVendaByClienteFinalizadaController} from './controllers/vendas/ListVendaByClienteFinalizadaController';
 
 
+//------------------VEICULOS------------------
+import { CreateVeiculoController } from './controllers/veiculo/CreateVeiculoController';
+import { ListVeiculoByClienteController } from './controllers/veiculo/ListVeiculoByClienteController';
+import { DeleteVeiculoByClienteController } from './controllers/veiculo/DeleteVeiculoByClienteController';
+
 
 //------------------MIDDLEWARES------------------
 import { isAutenticado } from './middlewares/isAutenticado';
@@ -94,20 +99,25 @@ router.put('/categoriaProdutoEdit', isAdmin, new EditCaProdutoController().handl
 
 //------------------ROTAS CATEGORIA VEICULO------------------
 router.post('/categoriaVeiculo', isAdmin, new CreateCaVeiculoController().handle);
-router.get('/categoriaVeiculoList', isAdmin, new ListCaVeiculoController().handle);
+router.get('/categoriaVeiculoList',  new ListCaVeiculoController().handle);
 router.delete('/categoriaVeiculoDelete', isAdmin, new DeleteCaVeiculoController().handle);
 router.put('/categoriaVeiculoEdit', isAdmin, new EditCaVeiculoController().handle);
 
+//------------------ROTAS VEICULOS------------------
+router.post('/veiculos', isAutenticado, new CreateVeiculoController().handle);
+router.get('/veiculosClientes', isAutenticado, new ListVeiculoByClienteController().handle);
+router.delete('/veiculosDelete', isAutenticado, new DeleteVeiculoByClienteController().handle);
+
 //------------------ROTAS CATEGORIA SERVICO------------------
 router.post('/categoriaServico', isAdmin, new CreateCaServicoController().handle);
-router.get('/categoriaServicoList', isAdmin, new ListCaServicoController().handle);
+router.get('/categoriaServicoList',  new ListCaServicoController().handle);
 router.delete('/categoriaServicoDelete', isAdmin, new DeleteCaServicoController().handle);
 router.put('/categoriaServicoEdit', isAdmin, new EditCaServicoController().handle);
 
 //------------------ROTAS PRODUTOS------------------
 router.post('/produtos', isAdmin, upload.single('file'), new CreateProdutoController().handle);
 router.get('/produtosListCategoria', isAdmin, new ListByCaProdutoController().handle);
-router.get('/produtosListAll', isAutenticado, new ListProdutoController().handle);
+router.get('/produtosListAll',  new ListProdutoController().handle);
 
 //------------------ROTAS VENDAS------------------
 router.post('/vendas', isAutenticado, new CreateVendaController().handle);

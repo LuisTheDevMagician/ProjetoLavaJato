@@ -7,7 +7,7 @@ interface VendaRequest {
 
 class CreateVendaService {
     async execute({ valorTotal, clienteId }: VendaRequest) {
-        // Verifica se o cliente existe
+        
         const cliente = await prismaClient.cliente.findUnique({
             where: {
                 id: clienteId,
@@ -18,7 +18,7 @@ class CreateVendaService {
             throw new Error("Cliente não encontrado");
         }
 
-        // Cria a venda
+        
         const venda = await prismaClient.venda.create({
             data: {
                 valorTotal: valorTotal || 0,

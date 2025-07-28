@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { api } from '@/services/api';
 import {redirect} from 'next/navigation';
 import {cookies} from 'next/headers';
+import Header from "@/app/components/header";
 
 async function handleLogin(formData: FormData){
   "use server";
@@ -58,6 +59,7 @@ async function handleLogin(formData: FormData){
 export default function Page() {
   return (
     <>
+    <Header />
     <div className={styles.containerCenter}>
       <Image src={logoImg} alt="Logo" />
 
@@ -84,9 +86,6 @@ export default function Page() {
 
           <Link href="/registrar" className={styles.text}>
             Não possui uma conta? Cadastre-se
-          </Link>
-          <Link href="/loginFuncionario" className={styles.text}>
-            Login Funcionários
           </Link>
 
         </form>

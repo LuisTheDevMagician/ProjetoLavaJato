@@ -17,6 +17,9 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/historico">Histórico</Link>
           </li>
+          <li>
+            <Link href="/dashboard/veiculos">Veículos</Link>
+          </li>
         </ul>
       </nav>
     </aside>

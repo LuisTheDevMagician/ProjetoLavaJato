@@ -1,0 +1,44 @@
+import styles from './styles.module.scss';
+import { getCookieServer } from "@/lib/cookieServer";
+import { api } from "@/services/api";
+
+
+interface Categoria {
+  id: number; 
+  nome: string;
+}
+
+export default async function ListarProduto() {
+  const token = await getCookieServer();
+
+  const response = await api.get<Categoria[]>('/categoriaVeiculoList', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  
+  const categorias = response.data.sort((a, b) => a.id - b.id);
+
+  return (
+    <main className={styles.container}>
+      <h1 className={styles.title}>Categorias de Veículos</h1>
+      <table className={styles.tabela}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categorias.map((categoria) => (
+            <tr key={categoria.id}>
+              <td>{categoria.id}</td>
+              <td>{categoria.nome}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}

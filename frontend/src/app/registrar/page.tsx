@@ -94,7 +94,7 @@ export default function registrar() {
           </button>
 
           <Link href="/" className={styles.text}>
-            Já possui uma conta? Faça login
+            Home
           </Link>
 
         </form>

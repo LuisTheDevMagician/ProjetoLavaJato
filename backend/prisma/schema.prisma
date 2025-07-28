@@ -68,7 +68,7 @@ model Veiculo {
   placa String @unique
   modelo String
   cor String
-  ano Int
+  ano String
   created_at DateTime? @default(now())
   uptadet_at DateTime? @default(now())
 

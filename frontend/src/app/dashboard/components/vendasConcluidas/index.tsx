@@ -26,9 +26,6 @@ export function VendasConcluidas({vendas}: Propiedades){
 
             <section className={styles.containerHeader}>
                 <h1>Histórico de Compras</h1>
-                <button>
-                    <RefreshCw size={20} color="#000" />
-                </button>
             </section>
 
             <section className={styles.listVendas}>

@@ -1,4 +1,5 @@
 
+import Header from "@/app/components/header";
 import styles from '../page.module.scss';
 import logoImg from '/public/pinheiro.svg';
 import Image from 'next/image';
@@ -58,6 +59,7 @@ async function handleLogin(formData: FormData){
 export default function Page() {
   return (
     <>
+    <Header />
     <div className={styles.containerCenter}>
       <Image src={logoImg} alt="Logo" />
 

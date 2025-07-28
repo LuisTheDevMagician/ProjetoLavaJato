@@ -1,0 +1,37 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue-rcraft);
+  padding: 1rem;
+}
+
+.card {
+  background-color: var(--yellow-craft);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem 3rem;
+  max-width: 400px;
+  text-align: center;
+}
+
+.logo {
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  color: var(--blue-rcraft);
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--blue-rcraft);
+  line-height: 1.4;
+  white-space: pre-line; // para respeitar as quebras de linha no texto
+}
