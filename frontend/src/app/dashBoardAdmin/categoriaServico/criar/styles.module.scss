@@ -1,0 +1,33 @@
+.container{
+    max-width: 720px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1{
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: var(--yellow-craft);
+    }
+}
+
+.form{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.input{
+    height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--yellow-craft);
+    padding: 0 20px;
+    color: var(--blue-rcraft);
+    border: 2px solid var(--yellow-craft);
+    font-size: 2rem;
+}
+

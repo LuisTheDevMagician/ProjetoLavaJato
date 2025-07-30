@@ -31,7 +31,7 @@ export function ProdutoForm({ categorias }: Propiedades) {
         const quantidade = formData.get('quantidade');
 
         if(!nome || !valor || !quantidade || !categoriaIndex || !image){ 
-            toast.warning('Por favor, preencha todos os campos!');
+            toast.error('Preencha todos os campos corretamente!');
             return;
         }
 

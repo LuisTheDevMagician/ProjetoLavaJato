@@ -20,6 +20,9 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/veiculos">Veículos</Link>
           </li>
+          <li>
+            <Link href="/dashboard/servicos">Serviços</Link>
+          </li>
         </ul>
       </nav>
     </aside>

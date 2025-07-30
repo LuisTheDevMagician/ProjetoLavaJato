@@ -10,12 +10,12 @@ interface FuncionarioRequest{
 class CreateFuncionarioService {
   async execute({ nome, email, senha } : FuncionarioRequest) {
 
-    //verificação de email
+
     if(!email) {
       throw new Error('Email incorreto');
     }
 
-    //verificação se email já existe
+
     const funcionarioJaExiste = await PrismaClient.funcionario.findFirst({
         where: {
             email: email
@@ -28,7 +28,6 @@ class CreateFuncionarioService {
 
     const senhaHash = await hash(senha, 8);
 
-    //criação do funcionário
     const funcionario = await PrismaClient.funcionario.create({
         data: {
             nome: nome,

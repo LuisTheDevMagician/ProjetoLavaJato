@@ -94,7 +94,7 @@ model CategoriaServico {
 
 model Servico {
   id Int @id @default(autoincrement())
-  nomeSevico String
+  nomeServico String
   valor Decimal @db.Decimal(10, 2)
   status Boolean @default(false)
   draft Boolean @default(true)

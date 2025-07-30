@@ -1,9 +1,24 @@
+"use client"
+
 import Header from "@/app/components/header";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import logoImg from '/public/pinheiro.svg';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status');
+
+
+  useEffect(() => {
+    if (status === 'success') {
+      toast.success('Você foi cadastrado com sucesso!');
+    }
+  }, [status]);
+
   return (
     <>
       <Header />

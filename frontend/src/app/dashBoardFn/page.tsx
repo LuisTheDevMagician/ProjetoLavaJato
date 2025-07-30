@@ -2,37 +2,56 @@
 import { api } from '@/services/api';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import styles from './styles.module.scss'; // Você pode criar este SCSS depois
+
+interface Servico {
+  id: number;
+  nomeServico: string;
+  created_at: string;
+}
 
 export default async function DashboardFn() {
-  // 1. Pega o token dos cookies
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
 
-  // 2. Se não tiver token, redireciona para login
   if (!token) {
     redirect('/loginFuncionario');
   }
 
-  // 3. Verifica se o usuário é um funcionário
   try {
-    const res = await api.get('/funcionarioInfo', {
+    const funcionarioRes = await api.get('/funcionarioInfo', {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    // Se a API retornar dados, renderiza a página
-    if (res.data) {
-      return (
-        <div>
-          <h1>Área Restrita - Funcionários</h1>
-          <p>Conteúdo exclusivo para funcionários autenticados.</p>
-        </div>
-      );
-    }
+    const servicosRes = await api.get<Servico[]>('/servicosDraftTrue', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const servicos = servicosRes.data;
+
+    return (
+      <div className={styles.container}>
+        <h1 className={styles.title}>Serviços em Rascunho</h1>
+
+        <table className={styles.tabela}>
+          <thead>
+            <tr>
+              <th>Nome do Serviço</th>
+              <th>Data de Criação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {servicos.map(servico => (
+              <tr key={servico.id}>
+                <td>{servico.nomeServico}</td>
+                <td>{new Date(servico.created_at).toLocaleDateString('pt-BR')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   } catch (err) {
-    // Se falhar, redireciona para acesso negado
     redirect('/acesso-negado');
   }
-
-  // Se não for funcionário, bloqueia
-  redirect('/acesso-negado');
 }

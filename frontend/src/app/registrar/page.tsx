@@ -34,7 +34,7 @@ async function handleRegister(formData: FormData){
     console.error('Erro ao cadastrar:', error);
   }
 
-  redirect('/');
+  redirect('/?status=success');
 }
 
 

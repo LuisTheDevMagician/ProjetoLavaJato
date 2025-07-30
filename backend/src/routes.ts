@@ -52,6 +52,12 @@ import { DetalheVendaController } from './controllers/vendas/DetalheVendaControl
 import { ConcluirVendaController } from './controllers/vendas/ConcluirVendaController';
 import {ListVendaByClienteFinalizadaController} from './controllers/vendas/ListVendaByClienteFinalizadaController';
 
+//------------------SERVIÇOS------------------
+import { CreateServicoController } from './controllers/servicos/CreateServicoController';
+import { SendServicoController } from './controllers/servicos/SendServicoController';
+import { ListServicoDraftTrueController } from './controllers/servicos/ListServicoDraftTrueController';
+import { DetalheServicoController } from './controllers/servicos/DetalheServicoController';
+
 
 //------------------VEICULOS------------------
 import { CreateVeiculoController } from './controllers/veiculo/CreateVeiculoController';
@@ -130,5 +136,12 @@ router.put("/sendVenda",  isAutenticado, new SendVendaController().handle);
 router.get("/detalheVenda",  isAutenticado, new DetalheVendaController().handle);
 router.put("/concluirVenda",  isAutenticado, new ConcluirVendaController().handle);
 router.get("/vendasclientesfinalizadas", isAutenticado, new ListVendaByClienteFinalizadaController().handle);
+
+//------------------ROTAS SERVIÇOS------------------
+router.post('/servicos', isAutenticado, new CreateServicoController().handle);
+router.put('/sendServico', isFuncionario, new SendServicoController().handle);
+router.get('/servicosDraftTrue',  new ListServicoDraftTrueController().handle);
+router.get('/detalheServico',  new DetalheServicoController().handle);
+
 
 export{router};
