@@ -1,15 +1,25 @@
 .button {
-    height: 40px;
-    background-color: var(--yellow-craft);
-    color: var(--blue-rcraft);
-    border: 0;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1.6rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
-    &:hover {
+   &:hover {
     background-color: var(--yellow-craft);
     color: var(--red-900);
     transform: scale(1.02);
     }
+}
+
+.button:hover {
+  background-color: #005ac1;
+}
+
+.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

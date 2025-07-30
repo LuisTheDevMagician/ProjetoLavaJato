@@ -1,17 +1,21 @@
 "use client";
 
-import styles from './styles.module.scss';
-import {useFormStatus} from 'react-dom'
+import styles from "./styles.module.scss";
 
-interface Propiedades{
-    nome: string;
+interface AceitarButtonProps {
+  texto: string;
+  onClick: () => void;
+  disabled?: boolean;
 }
 
-export function Button({nome}: Propiedades){
-    const {pending} = useFormStatus();
-    return (
-        <button type='submit' className={styles.button} disabled={pending}>
-            {pending ? 'Cadastrando...' : nome}
-        </button>
-    );
+export function AceitarButton({ texto, onClick, disabled }: AceitarButtonProps) {
+  return (
+    <button
+      className={`${styles.button} ${disabled ? styles.disabled : ""}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {texto}
+    </button>
+  );
 }
