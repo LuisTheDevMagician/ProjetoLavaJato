@@ -19,6 +19,7 @@ class ConcluirVendaService {
             where: { id },
             data: {
                 status: true,
+                draft: false,
                 valorTotal: valorTotal.toFixed(2), 
             },
         });

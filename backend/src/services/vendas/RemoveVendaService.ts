@@ -12,6 +12,14 @@ class RemoveVendaService {
       throw new Error("Venda não encontrada");
     }
 
+    if (venda.status === true) {
+      throw new Error("Venda já concluída, não é possível remover.");
+    }
+
+    await prismaClient.produtoVenda.deleteMany({
+      where: { vendaId: id },
+    });
+
     await prismaClient.venda.delete({
       where: {
         id,

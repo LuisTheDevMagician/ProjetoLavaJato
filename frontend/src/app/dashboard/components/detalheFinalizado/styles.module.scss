@@ -1,0 +1,74 @@
+/* styles.module.scss */
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #222;
+  text-align: center;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.tabela th {
+  background-color: #0070f3;
+  color: white;
+  font-weight: 600;
+  user-select: none;
+}
+
+.tabela tbody tr:hover {
+  background-color: #e6f0ff;
+}
+
+.tabela tbody tr:nth-child(even) {
+  background-color: #f7f9fc;
+}
+
+
+.AceitarButton {
+  cursor: pointer;
+  padding: 0.4rem 1.1rem;
+  background-color: #0070f3;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.aviso{
+  color: #ff0000;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+
+

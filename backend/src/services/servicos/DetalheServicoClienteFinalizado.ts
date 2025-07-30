@@ -1,21 +1,25 @@
 import prismaClient from "../../prisma";
 
-class DetalheServicoService {
-    async execute(id: number) {
+class DetalheServicoClienteFinalizadoService {
+    async execute(clienteId: number) {
         const servico = await prismaClient.servico.findMany({
             where: {
-                id: id
+                clienteId: clienteId,
+                status: true,
             },
             include: {
                 cliente:{
                     select: {
-                        id: true,
+                        nome: true
+                    }
+                },
+                funcionario: {
+                    select: {
                         nome: true
                     }
                 },
                 veiculo: {
                     select: {
-                        id: true,
                         modelo: true,
                         placa: true
                     }
@@ -27,4 +31,4 @@ class DetalheServicoService {
     }
 }
 
-export { DetalheServicoService };
+export { DetalheServicoClienteFinalizadoService };

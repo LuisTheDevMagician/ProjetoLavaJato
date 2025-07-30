@@ -3,17 +3,23 @@ import { RemoveVendaService } from '../../services/vendas/RemoveVendaService';
 
 class RemoveVendaController {
     async handle(req: Request, res: Response) {
-        const { id } = req.body;
+    try {
+            const { id } = req.query;
 
-        const removeVendaService = new RemoveVendaService();
+            if (!id) {
+            return res.status(400).json({ error: "ID da venda não informado." });
+            }
 
+            const removeVendaService = new RemoveVendaService();
+            const remove = await removeVendaService.execute(Number(id));
 
-        const remove =  await removeVendaService.execute(id);
-
-        return res.json(remove);
-
-       
+            return res.json(remove);
+        } catch (error: any) {
+            console.error("Erro ao remover venda:", error.message);
+            return res.status(400).json({ error: error.message });
+        }
     }
+
 }
 
 export { RemoveVendaController };

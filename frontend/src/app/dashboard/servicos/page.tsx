@@ -9,6 +9,7 @@ export default function ServicosPage() {
       <h1 className={styles.title}>Serviços</h1>
       <div className={styles.buttonGroup}>
         <Link href="/dashboard/servicos/solicitar" className={styles.actionButton}>Solicitar Novo Serviço</Link>
+        <Link href="/dashboard/servicos/cancelar" className={styles.actionButton}>Cancelar Serviço</Link>
         <Link href="/dashboard/servicos/andamento" className={styles.actionButton}>Em Andamento</Link>
         <Link href="/dashboard/servicos/concluido" className={styles.actionButton}>Concluídos</Link>
       </div>

@@ -9,10 +9,10 @@ export default function Sidebar() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <Link href="/dashBoardAdmin/andamento">Em Andamento</Link>
+            <Link href="/dashBoardFn/andamento">Em Andamento</Link>
           </li>
           <li>
-            <Link href="/dashBoardAdmin/finalizados">Finalizados</Link>
+            <Link href="/dashBoardFn/finalizados">Finalizados</Link>
           </li>
         </ul>
       </nav>

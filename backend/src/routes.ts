@@ -56,7 +56,13 @@ import {ListVendaByClienteFinalizadaController} from './controllers/vendas/ListV
 import { CreateServicoController } from './controllers/servicos/CreateServicoController';
 import { SendServicoController } from './controllers/servicos/SendServicoController';
 import { ListServicoDraftTrueController } from './controllers/servicos/ListServicoDraftTrueController';
-import { DetalheServicoController } from './controllers/servicos/DetalheServicoController';
+import { DetalheServicoFuncionarioController } from './controllers/servicos/DetalheServicoFuncionarioController';
+import { ConcluirServicoController } from './controllers/servicos/ConcluirServicoController';
+import { DetalheServicoFuncionarioFinalizadoController } from './controllers/servicos/DetalheServicoFuncionarioFinalizadoController';
+import { DetalheServicoClienteController } from './controllers/servicos/DetalheServicoClienteController';
+import { DetalheServicoClienteFinalizadoController } from './controllers/servicos/DetalheServicoClienteFinalizado';
+import { DeleteServicoClienteController } from './controllers/servicos/DeleteServicoClienteController';
+import { ListServicoDraftFalseController } from './controllers/servicos/ListServicoDraftFalseController';
 
 
 //------------------VEICULOS------------------
@@ -141,7 +147,12 @@ router.get("/vendasclientesfinalizadas", isAutenticado, new ListVendaByClienteFi
 router.post('/servicos', isAutenticado, new CreateServicoController().handle);
 router.put('/sendServico', isFuncionario, new SendServicoController().handle);
 router.get('/servicosDraftTrue',  new ListServicoDraftTrueController().handle);
-router.get('/detalheServico',  new DetalheServicoController().handle);
-
+router.get('/detalheServico',  isFuncionario, new DetalheServicoFuncionarioController().handle);
+router.put('/concluirServico', isFuncionario, new ConcluirServicoController().handle);
+router.get('/detalheServicoFinalizado', isFuncionario, new DetalheServicoFuncionarioFinalizadoController().handle);
+router.get('/detalheServicoCliente', isAutenticado, new DetalheServicoClienteController().handle);
+router.get('/detalheServicoClienteFinalizado', isAutenticado, new DetalheServicoClienteFinalizadoController().handle);
+router.delete('/servicosDelete', isAutenticado, new DeleteServicoClienteController().handle);
+router.get('/servicosDraftFalse',  new ListServicoDraftFalseController().handle);
 
 export{router};

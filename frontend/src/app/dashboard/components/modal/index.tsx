@@ -8,10 +8,14 @@ import {calcularTotalVenda} from "@/lib/helper";
 
 export function ModalVenda(){
 
-    const {onRequestClose, venda, finalizarVenda} = use(VendaContext);
+    const {onRequestClose, venda, finalizarVenda, cancelarVenda} = use(VendaContext);
 
     async function handleFinalizarVenda() {
         await finalizarVenda(venda[0].venda.id);
+    }
+
+    async function handleCancelarVenda() {
+        await cancelarVenda(venda[0].venda.id);
     }
 
     return(
@@ -44,6 +48,10 @@ export function ModalVenda(){
 
           <button className={styles.buttonOrder} onClick={handleFinalizarVenda}>
             Concluir pedido
+          </button>
+
+          <button className={styles.buttonCancel} onClick={handleCancelarVenda}>
+            Cancelar pedido
           </button>
 
         </article>

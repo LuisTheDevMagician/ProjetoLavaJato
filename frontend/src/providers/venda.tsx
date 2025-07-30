@@ -35,6 +35,7 @@ type VendaContextData = {
     onRequestClose: () => void;
     venda: VendaProdutosProps[];
     finalizarVenda: (vendaId: number) => Promise<void>;
+    cancelarVenda: (vendaId: number) => Promise<void>;
 }
 
 type VendaProviderProps = {
@@ -101,13 +102,42 @@ async function finalizarVenda(vendaId: number){
 
 }
 
+async function cancelarVenda(vendaId: number){
+    const token = await getCookieClient();
+
+    const data = {
+        id: vendaId
+    }
+
+    try{
+        await api.delete("/vendasDelete", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params:{
+                id: vendaId
+            }
+        });
+    }catch (error) {
+        console.log(error);
+        toast.error("Erro ao cancelar o pedido!");
+        return;
+    }
+
+    toast.success("Pedido cancelado com sucesso!");
+    router.refresh();
+    setIsOpen(false);
+
+}
+
     return(
         <VendaContext.Provider value={{
             isOpen,
             onRequestOpen,
             onRequestClose,
             venda,
-            finalizarVenda
+            finalizarVenda,
+            cancelarVenda
         }}>
             {children}
         </VendaContext.Provider>
